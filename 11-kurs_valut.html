@@ -20,6 +20,18 @@
 				<div class="currency-info">&#8364;</div>
 				<span id="EUR">XXXX</span> ГРН / EURO
 			</div>
+			<div class="currency-row" id="zloty">
+				<div class="currency-info">#</div>
+				<span id="PLN">XXXX</span> ГРН / ZLOTY
+			</div>
+			<div class="currency-row" id="KRONA">
+				<div class="currency-info">#</div>
+				<span id="CZK">XXXX</span> ГРН / KRONA
+			</div>
+			<div class="currency-row" id="forint">
+				<div class="currency-info">#</div>
+				<span id="HUF">XXXX</span> ГРН / FORINT
+			</div>
 			<div class="currency-row" id="ruble">
 				<div class="currency-info">&#8381;</div>
 				<span id="RUB">XXXX</span> ГРН / РУБЛЬ
@@ -51,6 +63,9 @@
 			<option value="UAH">UAH</option>
 			<option value="USD">USD</option>
 			<option value="EUR">EUR</option>
+			<option value="PLN">PLN</option>
+			<option value="CZK">CZK</option>
+			<option value="HUF">HUF</option>
 			<option value="RUB">RUB</option>
 		</select> 
 		<button onclick="moveValuta();">⮀</button> 
@@ -58,6 +73,9 @@
 			<option value="UAH">UAH</option>
 			<option value="USD">USD</option>
 			<option value="EUR">EUR</option>
+			<option value="PLN">PLN</option>
+			<option value="CZK">CZK</option>
+			<option value="HUF">HUF</option>
 			<option value="RUB">RUB</option>
 		</select>
 	</div>
@@ -69,17 +87,18 @@
     <script>
 		// получение данных по API с сервера НБУ в виде JSON-формата
 		NBU_url = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json'
-		// [3] - CZK "Чеська крона"
-		// [6] - HUF "Форинт"
+		// [3] - CZK 'Чеська крона'
+		// [6] - HUF 'Форинт'
 		// [21] - CHF "Швейцарський франк"
 		// [23] - GBP "Фунт стерлінгів"
-		// [24] - USD
-		// [31] - EUR
-		// [17] - RUB
-		// [57] - XAU
-		// [58] - XAG
-		// [59] - XPT
-		// [60] - XPD
+		// [24] - USD 'Долар США'
+		// [31] - EUR 'Євро'
+		// [32] - PLN 'Злотий'
+		// [17] - RUB 'Російський рубль'
+		// [57] - XAU 'Золото'
+		// [58] - XAG 'Срібло'
+		// [59] - XPT 'Платина'
+		// [60] - XPD 'Паладій'
 
 		const crossKurs = {
 			UAH: 1
@@ -105,9 +124,12 @@
 			
 			// renderRates(data)
 
+			crossKurs.CZK = updateValue(data, 3)
+			crossKurs.HUF = updateValue(data, 6)
 			crossKurs.RUB = updateValue(data, 17)
 			crossKurs.USD = updateValue(data, 24)
 			crossKurs.EUR = updateValue(data, 31)
+			crossKurs.PLN = updateValue(data, 32)
 
 			updateValue(data, 57)
 			updateValue(data, 58)
@@ -119,19 +141,19 @@
 		
 		function convertNBU() {
 			const valuta1=document.getElementById('valuta1')
-			console.log(valuta1.value)
-			console.log(crossKurs[valuta1.value])
+			// console.log(valuta1.value)
+			// console.log(crossKurs[valuta1.value])
 			// console.log(valuta1.selectedIndex)
 			const valuta2=document.getElementById('valuta2')
-			console.log(valuta2.value)
-			console.log(crossKurs[valuta2.value])
+			// console.log(valuta2.value)
+			// console.log(crossKurs[valuta2.value])
 			// console.log(valuta2.selectedIndex)
 			
 			const res_valuta1=document.getElementById('res_valuta1')
-			console.log(res_valuta1.value)
+			// console.log(res_valuta1.value)
 			
 			const res_valuta2=document.getElementById('res_valuta2')
-			res_valuta2.value = (res_valuta1.value * crossKurs[valuta2.value] / crossKurs[valuta1.value]).toFixed(2)
+			res_valuta2.value = (res_valuta1.value * crossKurs[valuta1.value] / crossKurs[valuta2.value]).toFixed(2)
 
 		}
 
