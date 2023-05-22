@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+	<!-- Работа с атрибутами. Прослушка событий. Изображение -->
+	<div class="dom-example">
+		<div class="example-block">
+			<img id="logo" src="./img/js.png" alt="Логотип" /><br />
+			<input id="button" type="submit" value="Кнопка" />
+		</div>
+	</div>
+    <script>
+		/*
+		getAttribute(attrName) — возвращает значение указанного атрибута
+		setAttribute(name, value) — добавляет указанные атрибут и его значение к элементу
+		hasAttribute(attrName) — возвращает true при наличии у элемента указанного атрибута
+		removeAttribute(attrName) — удаляет указанный атрибут
+
+		toggleAttribute(name, force) — добавляет новый атрибут при отсутствии или удаляет существующий атрибут.
+		hasAttributes() — возвращает true, если у элемента имеются какие-либо атрибуты
+		getAttributesNames() — возвращает названия атрибутов элемента
+		*/
+		
+		// присваиваем перемнной найденный объект с id="logo"
+		const img = document.querySelector('#logo');
+		console.log(img)
+		
+		// получаем путь к файлу
+		const srcValue = img.getAttribute('src');
+		console.log(srcValue);
+		
+		// установка/измененеие атрибута
+		img.setAttribute('src', './img/php.png')
+		img.setAttribute('width', '200')
+		
+		// прямой доступ к пути изображения
+		img.src = './img/js.png'
+				
+		// присваиваем перемнной найденный объект с id="button"
+		const button = document.querySelector('#button');
+		console.log(button)
+		
+		// установка/измененеие атрибута
+		button.setAttribute('value', 'Отправить')
+		
+		// прямой доступ к тексту кнопки
+		button.value = "Текст для кнопки"
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+	<!-- Работа с атрибутами. Прослушка событий. Изображение -->
+	<div class="dom-example">
+		<div class="example-block">
+			<img id="logo" src="./img/js.png" alt="Логотип" /><br />
+			<input id="button1" type="submit" value="Кнопка" />
+			<input id="button2" type="submit" value="Кнопка" />
+		</div>
+	</div>
+    <script>
+		// присваиваем перемнной найденный объект с id="button"
+		const button1 = document.querySelector('#button1');
+		const button2 = document.querySelector('#button2');
+		const img = document.querySelector('#logo')
+		
+		// прямой доступ к тексту кнопки
+		button1.value = "Удалить IMG"
+		button2.value = "Удалить BUTTON"
+
+		// реакция на событие нажатие кнопки ('click')
+		// Вариант 1. Устанавиливаем действие на событие 'click' по кнопке #"Удалить IMG"
+		button1.onclick = function(){
+			console.log('Click. Button 1!');
+			img.remove();
+		}
+		
+		// Вариант2. Устанавиливаем прослушку на событие 'click' по кнопке #"Удалить BUTTON"
+		// можно установить несколько обработчиков одного события
+		button2.addEventListener('click', () => {
+			console.log('Click. Button 2! Event 1.');
+		})
+		button2.addEventListener('click', () => {
+			console.log('Click. Button 2! Event 2.');
+			button1.remove();
+		})
+		button2.addEventListener('click', () => {
+			console.log('Click. Button 2! Event 3.');
+			button1.remove();
+		})
+		
+    </script>
+</body>
+</html>

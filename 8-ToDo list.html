@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+	<!-- ToDo список задач -->
+	<div class="simple-todo">
+		<div class="tasks-wrapper">
+			<h2>Список задач</h2>
+			<ul id="todo-list">
+				<li>Посмотреть вебинар</li>
+				<li>Написать конспект</li>
+				<li>Повторить код с урока</li>
+			</ul>
+		</div>
+		<form id="todo-form">
+			<input id="todo-input" type="text" placeholder="Введите название задачи" />
+			<button type="submit">Добавить задачу</button>
+		</form>
+	</div>
+    <script>
+
+		// выбор контейнеров
+		const todoList = document.querySelector('#todo-list');
+		const todoForm = document.querySelector('#todo-form');
+		const todoInput = document.querySelector('#todo-input');
+
+		// добавляем прослушку на отправку формы (нажатие Enter в текстовом поле и кнопку Submit)
+		todoForm.addEventListener('submit', formHandler);
+
+		function formHandler(event) {
+			event.preventDefault() 	// отмена отправки формы, перезагрузки страницы
+			
+			// получаем название задачи из формы
+			const taskText = todoInput.value;
+
+			// если отправлена пустая строка
+			if (taskText == '') {
+				alert('Введите коректно задачу!');
+				return
+			}
+
+			// Создаём тэг списка. Вариант №1
+			// // создаём тэг списка через шаблонную строку
+			// const li = `<li>${taskText}</li>`;
+			// todoList.insertAdjacentHTML('beforeend', li)
+			
+			// Создаём тэг списка. Вариант №2
+			// создаём тэг списка через создание элемента
+			const newTask = document.createElement('li');
+			newTask.innerText = taskText;
+
+			// БОНУС. Создаём доп.кнопку 'Удалить' задачу
+			const deleteBtn = document.createElement('button');
+			deleteBtn.setAttribute('role', 'button');
+			deleteBtn.innerText = 'Удалить';
+			deleteBtn.style['margin-left'] = '15px';
+			newTask.append(deleteBtn)
+
+			// // добавляем событие по клику. Вариант №1
+			deleteBtn.addEventListener('click', function(){
+				// console.log(this);
+				this.closest('li').remove();  // поиск родительского тега .closest() и его удаление .remove()
+			});
+
+			// // добавляем событие по клику. Вариант №2
+			// deleteBtn.addEventListener('click', (event) => event.target.closest('li').remove());  // поиск родительского тега .closest() и его удаление .remove()
+
+			// Добавляем элемент на страницу
+			todoList.append(newTask);
+
+			// очищаем поле ввода
+			todoInput.value = '';
+
+			// возвращаем фокус на поле ввода
+			todoInput.focus()
+		}
+    </script>
+</body>
+</html>

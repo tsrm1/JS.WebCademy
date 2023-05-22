@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+	<header>
+		<h1>JavaScript для начинающих</h1>
+		<div class="school-name">урок от ВебКадеми</div>
+	</header>
+	<!-- Создание элементов -->
+	<div class="dom-example">
+		<h2>Создание и копирование элементов</h2>
+		<div id="elementsContainer"></div>
+	</div>
+    <script>
+		/*
+		// Создать элемент
+		document.createElement('tag-name')
+
+		// Изменить HTML содержимое внутри элемента
+		element.innerHTML = ''
+
+		// Изменить Текстовое  содержимое внутри элемента
+		node.innerText = ''
+
+		// Клонирование элемента
+		node.cloneNode() // true c внутренним содержимым (текст и теги), false - без внутреннего содержимого
+
+		// вставить элемент внутрь другого элемента
+		element.append(nodesOrDOMStrings)
+
+		// Удалить элемент
+		element.remove()
+		*/
+
+		// выбор контейнера
+		const container = document.querySelector('#elementsContainer');
+
+		// создание заголовка
+		const newHeader = document.createElement('h1'); // создание нового тега
+		newHeader.innerText = 'Новый заголовок';		// создать текст внутри тега
+		container.append(newHeader)						// добавить в контейнер созданный тег
+
+		// копирование шапки
+		const mainHeader = document.querySelector('header') // находим шапку
+		const headerCopy = mainHeader.cloneNode(true) 		// клонирование тега, true - вместе с содержимым
+		container.append(headerCopy)						// добавить в контейнер клонированный тег
+
+		// вставка разметки через строки
+		const htmlExample = '<h1>Ещё один заголовок</h1>';
+		container.insertAdjacentHTML('beforeend', htmlExample);
+		
+		// вставка обычного текста
+		const newText = 'Новый текст.'
+		container.insertAdjacentText('beforeend', newText);
+
+		// вставка разметки через шаблонные строки
+		const htmlTemplate = `<h1>${newText}</h1>`;
+		container.insertAdjacentHTML('beforeend', htmlTemplate)
+		
+    </script>
+</body>
+</html>

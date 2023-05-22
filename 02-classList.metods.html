@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+     <!-- Пример с выбором элементов. Селекторы. CSS классы -->
+		<div class="dom-example">
+			<h1 class="heading-1" id="heading-1">Заголовок 1</h1>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus quae blanditiis eaque, at, eos ipsam
+				impedit, consequuntur tenetur magnam fugit atque. Quos perspiciatis tenetur molestiae distinctio
+				voluptatum reprehenderit vitae reiciendis.
+			</p>
+			<h2 class="heading-2">Заголовок 2</h2>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel natus quis esse illo, architecto voluptas
+				asperiores tempora modi perferendis deserunt excepturi at optio doloribus illum, sint dicta nam, harum
+				officiis?
+			</p>
+			<h2 class="heading-2">Заголовок 2</h2>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel natus quis esse illo, architecto voluptas
+				asperiores tempora modi perferendis deserunt excepturi at optio doloribus illum, sint dicta nam, harum
+				officiis?
+			</p>
+			</p>
+			<h2 class="heading-2">Заголовок 2</h2>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel natus quis esse illo, architecto voluptas
+				asperiores tempora modi perferendis deserunt excepturi at optio doloribus illum, sint dicta nam, harum
+				officiis?
+			</p>
+			<h3 class="heading-3">Заголовок 3</h3>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel natus quis esse illo, architecto voluptas
+				asperiores tempora modi perferendis deserunt excepturi at optio doloribus illum, sint dicta nam, harum
+				officiis?
+			</p>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel natus quis esse illo, architecto voluptas
+				asperiores tempora modi perferendis deserunt excepturi at optio doloribus illum, sint dicta nam, harum
+				officiis?
+			</p>
+		</div>
+    <script>
+        // document.querySelector('h2').classList.add('red-text') // добавляем класс 'red-text' к 1му найденому тегу 'h2'
+        let  heading = document.querySelector('h2') // переменной heading присваиваем найденый тег 'h2'
+        
+		// работаем с объектом через переменную
+		// добавляем класс 'red-text'
+		heading.classList.add('red-text')    
+		// удаляем класс 'red-text'
+		heading.classList.remove('red-text')    
+		// переключаем класс 'red-text' (если нету - присваиваем (возврат true), если есть - удаляем (возврат false))
+		let result = heading.classList.toggle('red-text')    
+		result ? console.log('class added') : console.log('class deleted')
+		// проверяем наличие класса (возврат true/false)
+		result =  heading.classList.contains('red-text')   
+		result ? console.log('class abble') : console.log('class not abble')
+		// сокращаяем условную конструкцию, без использования промежуточной переменной
+		heading.classList.contains('red-text') 
+			? console.log('class exist') 
+			: console.log('class not exist')
+    </script>
+</body>
+</html>

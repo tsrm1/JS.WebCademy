@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>		
+	<!-- Fetch example - курсы валют -->
+	<div class="fetch-example">
+		<h2>Курсы валют</h2>
+		<div class="currency-box">
+			<div class="currency-row" id="dollar">
+				<div class="currency-info">&#36;</div>
+				<span id="USD">XXXX</span> ГРН / USD
+			</div>
+			<div class="currency-row" id="euro">
+				<div class="currency-info">&#8364;</div>
+				<span id="EUR">XXXX</span> ГРН / EURO
+			</div>
+			<div class="currency-row" id="ruble">
+				<div class="currency-info">#</div>
+				<span id="RUB">XXXX</span> ГРН / РУБЛЬ
+			</div>
+			<div class="currency-row" id="aurum">
+				<div class="currency-info">#</div>
+				<span id="XAU">XXXX</span> ГРН / 1 кг ЗОЛОТО
+			</div>
+			<div class="currency-row" id="platinum">
+				<div class="currency-info">#</div>
+				<span id="XPT">XXXX</span> ГРН / 1 кг ПЛАТИНА
+			</div>
+			<div class="currency-row" id="argentum">
+				<div class="currency-info">#</div>
+				<span id="XAG">XXXX</span> ГРН / 1 кг СЕРЕБРО
+			</div>
+			<div class="currency-row" id="Paladium">
+				<div class="currency-info">#</div>
+				<span id="XPD">XXXX</span> ГРН / 1 кг ПАЛАДИЙ
+			</div>
+		</div>
+
+	</div>
+    <script>
+		// получение данных по API с сервера НБУ в виде JSON-формата
+		NBU_url = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json'
+
+		// // получение данных Вариант №1
+		// // в виде fetch('url').then() 
+		// fetch(NBU_url)	// возвращает PROMISE
+		// 	.then(function(data){
+		// 		return data.json()
+		// 		}).then(function(data){
+		// 			console.log(data)
+		// 		}).catch((value) => {
+		// 			console.log('Курс валют НБУ недоступен!')
+		// 			console.log(value)
+		// 			})
+					
+		// получение данных Вариант №2
+		async function getCurrencies () {
+			const response = await fetch(NBU_url)	// fetch() - возвращает PROMISE, await - ждём реального ответа
+			const data = await response.json()		// json() - также возвращает PROMISE
+			console.log(data)
+			
+			// renderRates(data)
+			updateValue(data, 17)
+			updateValue(data, 24)
+			updateValue(data, 31)
+			updateValue(data, 57)
+			updateValue(data, 58)
+			updateValue(data, 59)
+			updateValue(data, 60)
+			
+		}
+		
+		getCurrencies()
+		
+
+		// функция изменения курса валют на странице. Вариант 1
+		function renderRates(data) {
+			// [24] - USD
+			// [31] - EUR
+			// [17] - RUB
+			// [57] - XAU
+			// [58] - XAG
+			// [59] - XPT
+			// [60] - XPD
+			console.log(data[31].r030) 			// код валюты
+			console.log(data[31].txt)			// название валюты
+			console.log(data[31].cc)			// Обозначение валюты
+			console.log(data[31].rate)			// курс
+			console.log(data[31].exchangedate)	// дата текущая
+	
+			const usdRate = data[24].rate.toFixed(2)	// присваиваем переменной курс, округляем значение до 2го знака
+			const eurRate = data[31].rate.toFixed(2)	// присваиваем переменной курс, округляем значение до 2го знака
+			
+			// отображаем курсы на странце
+			const usdElement = document.querySelector('#USD')
+			const eurElement = document.querySelector('#EUR')
+			
+			usdElement.innerText = usdRate
+			eurElement.innerText = eurRate
+		}
+		
+		// функция изменения значения курса валюты на странице. Вариант 2
+		function updateValue(data, valID) {
+			const element = document.querySelector(`#${data[valID].cc}`)
+			element.innerText = data[valID].rate.toFixed(2)
+		}
+
+    </script>
+</body>
+</html>

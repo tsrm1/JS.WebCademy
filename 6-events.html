@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+	<!-- Прослушка событий 3. event -->
+	<div class="dom-example">
+		<h2>Объект event</h2>
+		<h3>Список задач</h3>
+			<ul id="list">
+				<li>Посмотреть вебинар</li>
+				<li>Написать конспект</li>
+				<li>Повторить код с урока</li>
+			</ul>
+	</div>
+    <script>
+		// присваиваем перемнной найденный объект с id="list"
+		const list = document.querySelector('#list');
+
+		// устанавливаем прослушку на событие 'click'
+		list.addEventListener('click', function (event) {
+			console.log(this);
+			console.log(event);
+			console.log(event.target);
+
+		})
+		
+    </script>
+</body>
+</html>

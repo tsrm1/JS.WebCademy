@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+	<!-- Таймер setInterval -->
+	<div class="dom-example ">
+		<div id="date"><h4>0</h4></div>
+		<div class="counter" id="counter">0</div>
+		<button role="button" id="start">Старт</button>
+		<button role="button" id="pause">Пауза</button>
+		<button role="button" id="reset">Сброс</button>
+	</div>
+    <script>
+		// setInterval
+		// устанавливает период вызова функции (многократно)
+
+		// запуск в работу вызова функции с заданным интервалом
+		const timerIntervalID = setInterval(function() {
+			console.log('Fired!')
+		}, 1000)
+
+		// остановка вызова функции
+		// clearInterval(timerIntervalID)
+
+
+		// setTimeout
+		// Устанавливает задержку выполнения функции (однократно)
+		setTimeout(function() {
+			console.log('setTimeout Fired!')
+		}, 2000)
+
+		// для возможности отмены вызова функции, присвоим Timeout переменной
+		const timeoutID = setTimeout(function() {
+			console.log('setTimeout Fired with timeriD!')
+		}, 3000)
+
+		// отмена вызова функции заредержки
+		clearInterval(timeoutID)
+
+		// Секундомер
+		let counter = 0; // обнуляем счётчик
+		let timerID; // ссылка на ID таймера (в глобальной области видимости)
+		const counterElement = document.querySelector('#counter') // находим положение счётчика
+
+		
+		// кнопка Start
+		const btnStart = document.querySelector('#start');
+		btnStart.onclick = function(){
+			console.log('btnStart')
+			timerID = setInterval(function() {
+				counter ++;  // += 1
+				console.log(counter)
+				counterElement.innerText = counter;
+			}, 1000)
+		}
+		
+		// кнопка Pause
+		const btnPause = document.querySelector('#pause');
+		btnPause.onclick = function(){
+			console.log('btnPause')
+			clearInterval(timerID);
+		}
+		
+		// кнопка Reset
+		const btnReset = document.querySelector('#reset');
+		btnReset.onclick = function(){
+			console.log('btnReset')
+			clearInterval(timerID);
+			counter = 0;
+			counterElement.innerText = counter;
+		}
+		
+		//  дата и время
+		// const container = document.querySelector('#date');
+		// let htmlTemplate;
+		setInterval(function(){
+			// htmlTemplate = `<h4>${Date()}</h4>`;
+			document.getElementById('date').innerHTML = `<h4>${Date()}</h4>`;
+			// container.clear()
+			// container.insertAdjacentHTML('beforeend', htmlTemplate) // добавить шаблонную строку (дату)
+		}, 1000)
+
+    </script>
+</body>
+</html>
