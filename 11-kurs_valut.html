@@ -43,9 +43,47 @@
 		</div>
 
 	</div>
+
+	<h3>Конвертація валюти по курсу НБУ</h3>
+	<!-- <p>Створюємо конвертор валют на JavaScript за курсом НБУ.</p> -->
+	<div>
+		<select id="valuta1" onchange="convertNBU();">
+			<option value="UAH">UAH</option>
+			<option value="USD">USD</option>
+			<option value="EUR">EUR</option>
+			<option value="RUB">RUB</option>
+		</select> 
+		<button onclick="moveValuta();">⮀</button> 
+		<select id="valuta2" onchange="convertNBU()">
+			<option value="UAH">UAH</option>
+			<option value="USD">USD</option>
+			<option value="EUR">EUR</option>
+			<option value="RUB">RUB</option>
+		</select>
+	</div>
+	<div>
+		<input id="res_valuta1" oninput="convertNBU();" value=1 size="10"> 
+		<input id="res_valuta2" size="10" disabled>
+	</div>
+	
     <script>
 		// получение данных по API с сервера НБУ в виде JSON-формата
 		NBU_url = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json'
+		// [3] - CZK "Чеська крона"
+		// [6] - HUF "Форинт"
+		// [21] - CHF "Швейцарський франк"
+		// [23] - GBP "Фунт стерлінгів"
+		// [24] - USD
+		// [31] - EUR
+		// [17] - RUB
+		// [57] - XAU
+		// [58] - XAG
+		// [59] - XPT
+		// [60] - XPD
+
+		const crossKurs = {
+			UAH: 1
+		}
 
 		// // получение данных Вариант №1
 		// // в виде fetch('url').then() 
@@ -66,28 +104,40 @@
 			console.log(data)
 			
 			// renderRates(data)
-			updateValue(data, 17)
-			updateValue(data, 24)
-			updateValue(data, 31)
+
+			crossKurs.RUB = updateValue(data, 17)
+			crossKurs.USD = updateValue(data, 24)
+			crossKurs.EUR = updateValue(data, 31)
+
 			updateValue(data, 57)
 			updateValue(data, 58)
 			updateValue(data, 59)
 			updateValue(data, 60)
-			
 		}
 		
 		getCurrencies()
 		
+		function convertNBU() {
+			const valuta1=document.getElementById('valuta1')
+			console.log(valuta1.value)
+			console.log(crossKurs[valuta1.value])
+			// console.log(valuta1.selectedIndex)
+			const valuta2=document.getElementById('valuta2')
+			console.log(valuta2.value)
+			console.log(crossKurs[valuta2.value])
+			// console.log(valuta2.selectedIndex)
+			
+			const res_valuta1=document.getElementById('res_valuta1')
+			console.log(res_valuta1.value)
+			
+			const res_valuta2=document.getElementById('res_valuta2')
+			res_valuta2.value = (res_valuta1.value * crossKurs[valuta2.value] / crossKurs[valuta1.value]).toFixed(2)
+
+		}
 
 		// функция изменения курса валют на странице. Вариант 1
 		function renderRates(data) {
-			// [24] - USD
-			// [31] - EUR
-			// [17] - RUB
-			// [57] - XAU
-			// [58] - XAG
-			// [59] - XPT
-			// [60] - XPD
+
 			console.log(data[31].r030) 			// код валюты
 			console.log(data[31].txt)			// название валюты
 			console.log(data[31].cc)			// Обозначение валюты
@@ -109,6 +159,14 @@
 		function updateValue(data, valID) {
 			const element = document.querySelector(`#${data[valID].cc}`)
 			element.innerText = data[valID].rate.toFixed(2)
+			return data[valID].rate
+		}
+
+		function moveValuta() {
+			const temp = valuta1.selectedIndex
+			valuta1.selectedIndex = valuta2.selectedIndex
+			valuta2.selectedIndex = temp
+			convertNBU()
 		}
 
     </script>
